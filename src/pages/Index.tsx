@@ -3,94 +3,115 @@ import Icon from "@/components/ui/icon";
 
 const SHOW_IMAGE = "https://cdn.poehali.dev/projects/dbf0d60f-43a1-48c1-8272-8958ff7beb9d/files/49c2d0e2-b4e7-4832-8d95-6d90192aac3d.jpg";
 
+// Тип элемента программы
+type ProgramItem =
+  | { kind: "number"; num: number; title: string; note?: string }
+  | { kind: "bg"; num: number; for: string }
+  | { kind: "special"; num: number; title: string };
+
+const SHOW_TITLE = "Кто любит — тот любим";
+const SHOW_YEAR = "Открытый урок 2026";
+
+// Подробный поминутный план (занавес закрыт до открытия)
+const DETAILED: ProgramItem[] = [
+  { kind: "special", num: 0,  title: "Открытие — фонограмма, занавес открывается" },
+  { kind: "number",  num: 1,  title: "Калинка" },
+  { kind: "number",  num: 2,  title: "Калинка (уход)" },
+  { kind: "bg",      num: 3,  for: "Калинка — фото на экране" },
+  { kind: "number",  num: 4,  title: "Мир спаленки" },
+  { kind: "bg",      num: 5,  for: "Мир спаленки" },
+  { kind: "number",  num: 6,  title: "Рожь" },
+  { kind: "bg",      num: 7,  for: "Рожь" },
+  { kind: "bg",      num: 8,  for: "Галчата" },
+  { kind: "bg",      num: 9,  for: "Созвездие" },
+  { kind: "number",  num: 10, title: "Созвездие" },
+  { kind: "bg",      num: 11, for: "Кулинары" },
+  { kind: "number",  num: 12, title: "Кулинары" },
+  { kind: "bg",      num: 13, for: "Постигая глубины морей" },
+  { kind: "number",  num: 14, title: "Постигая глубины морей" },
+  { kind: "bg",      num: 15, for: "Не разлучные" },
+  { kind: "number",  num: 16, title: "Дуэт «Не разлучные»" },
+  { kind: "bg",      num: 17, for: "Куклы" },
+  { kind: "number",  num: 18, title: "Куклы" },
+  { kind: "bg",      num: 19, for: "Дела кошачьи" },
+  { kind: "number",  num: 20, title: "Дела кошачьи" },
+  { kind: "bg",      num: 21, for: "Хрупкая красота" },
+  { kind: "number",  num: 22, title: "Хрупкая красота" },
+  { kind: "bg",      num: 23, for: "Свет в оконце / За тобой" },
+  { kind: "number",  num: 24, title: "За тобой" },
+  { kind: "bg",      num: 25, for: "Свет в оконце" },
+  { kind: "number",  num: 26, title: "За тобой / Свет в оконце" },
+  { kind: "bg",      num: 27, for: "Мир в наших руках" },
+  { kind: "number",  num: 28, title: "Мир в наших руках" },
+  { kind: "bg",      num: 29, for: "Весёлые нотки" },
+  { kind: "number",  num: 30, title: "Весёлые нотки" },
+  { kind: "bg",      num: 31, for: "Ритм жизни" },
+  { kind: "number",  num: 32, title: "Ритм жизни" },
+  { kind: "bg",      num: 33, for: "Папино тепло" },
+  { kind: "number",  num: 34, title: "Папино тепло" },
+  { kind: "number",  num: 35, title: "Женщине не место на войне" },
+  { kind: "special", num: 36, title: "Слово родителям" },
+  { kind: "special", num: 37, title: "Выход выпускников" },
+  { kind: "special", num: 38, title: "Награждение выпускников" },
+  { kind: "special", num: 39, title: "Финал — выход с кубками" },
+  { kind: "special", num: 40, title: "Гимн — Валенсия" },
+];
+
+// Секции для отображения
 const PROGRAM = [
   {
     type: "prologue",
-    label: "Пролог",
+    label: "Открытие",
     icon: "Sparkles",
     color: "#D4A843",
-    time: "19:00",
-    duration: "15 мин",
-    title: "Рождение Праздника",
-    description: "Торжественное открытие. Занавес медленно раздвигается — и мир наполняется светом, музыкой и движением.",
-    numbers: [
-      { num: 1, title: "Увертюра", style: "Классический балет", music: "Открывающая тема", duration: "5 мин" },
-      { num: 2, title: "Танец рассвета", style: "Современный танец", music: "Оркестровая композиция", duration: "10 мин" },
-    ],
+    title: "Занавес закрыт",
+    description: "Звучит фонограмма. На словах открывается занавес — шоу начинается!",
+    items: [0],
   },
   {
     type: "act",
-    label: "Акт I",
+    label: "Часть I",
     icon: "Flame",
     color: "#E05747",
-    time: "19:15",
-    duration: "45 мин",
-    title: "Огонь Вдохновения",
-    description: "Стремительные ритмы, яркие краски и неудержимая энергия первого акта захватывают дух с первых секунд.",
-    numbers: [
-      { num: 3, title: "Вихрь страсти", style: "Фламенко + современный", music: "Ваша песня 1", duration: "8 мин" },
-      { num: 4, title: "Игра огней", style: "Характерный танец", music: "Ваша песня 2", duration: "7 мин" },
-      { num: 5, title: "Полёт", style: "Классический балет", music: "Ваша песня 3", duration: "10 мин" },
-      { num: 6, title: "Ритм города", style: "Контемпорари", music: "Ваша песня 4", duration: "12 мин" },
-      { num: 7, title: "Вместе мы сила", style: "Групповой номер", music: "Ваша песня 5", duration: "8 мин" },
-    ],
-  },
-  {
-    type: "intermission",
-    label: "Антракт",
-    icon: "Coffee",
-    color: "#8B7355",
-    time: "20:00",
-    duration: "20 мин",
-    title: "Пауза для вдохновения",
-    description: "Время насладиться атмосферой праздника, пообщаться и подготовиться ко второму акту.",
-    numbers: [],
+    title: "Первые номера",
+    description: "Калинка, Мир спаленки, Рожь, Галчата, Созвездие",
+    items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   },
   {
     type: "act",
-    label: "Акт II",
+    label: "Часть II",
     icon: "Star",
     color: "#7B68EE",
-    time: "20:20",
-    duration: "50 мин",
-    title: "Лирика Мечты",
-    description: "Нежность, лиризм и глубина — второй акт уносит зрителей в мир грёз и сокровенных чувств.",
-    numbers: [
-      { num: 8, title: "Лунный свет", style: "Лирический балет", music: "Ваша песня 6", duration: "10 мин" },
-      { num: 9, title: "Нежность", style: "Pas de deux", music: "Ваша песня 7", duration: "12 мин" },
-      { num: 10, title: "Детские мечты", style: "Характерный танец", music: "Ваша песня 8", duration: "8 мин" },
-      { num: 11, title: "Путь к звёздам", style: "Современный танец", music: "Ваша песня 9", duration: "12 мин" },
-      { num: 12, title: "Единство", style: "Смешанные стили", music: "Ваша песня 10", duration: "8 мин" },
-    ],
+    title: "В мире образов",
+    description: "Кулинары, Постигая глубины морей, Не разлучные, Куклы, Дела кошачьи",
+    items: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
   },
   {
     type: "act",
-    label: "Акт III",
+    label: "Часть III",
     icon: "Zap",
     color: "#20B2AA",
-    time: "21:10",
-    duration: "35 мин",
-    title: "Триумф Радости",
-    description: "Кульминация праздника! Все стили сливаются в единый поток торжества и ликования.",
-    numbers: [
-      { num: 13, title: "Карнавал", style: "Смешанные стили", music: "Ваша песня 11", duration: "10 мин" },
-      { num: 14, title: "Встреча двух миров", style: "Балет + контемпорари", music: "Ваша песня 12", duration: "12 мин" },
-      { num: 15, title: "Взрыв красок", style: "Все исполнители", music: "Ваша песня 13", duration: "13 мин" },
-    ],
+    title: "Красота и чувства",
+    description: "Хрупкая красота, За тобой, Свет в оконце, Мир в наших руках",
+    items: [21, 22, 23, 24, 25, 26, 27, 28],
+  },
+  {
+    type: "act",
+    label: "Часть IV",
+    icon: "Music",
+    color: "#C77DFF",
+    title: "Энергия и тепло",
+    description: "Весёлые нотки, Ритм жизни, Папино тепло, Женщине не место на войне",
+    items: [29, 30, 31, 32, 33, 34, 35],
   },
   {
     type: "finale",
     label: "Финал",
     icon: "Trophy",
     color: "#D4A843",
-    time: "21:45",
-    duration: "30 мин",
     title: "Апофеоз",
-    description: "Грандиозный финальный номер объединяет всех участников на сцене. Кульминация всего шоу — взрыв радости, красоты и торжества!",
-    numbers: [
-      { num: 16, title: "Все вместе", style: "Гранд-ансамбль", music: "Финальная тема", duration: "15 мин" },
-      { num: 17, title: "Поклоны и овации", style: "Церемония", music: "Праздничный марш", duration: "15 мин" },
-    ],
+    description: "Слово родителям, выход и награждение выпускников, гимн Валенсия",
+    items: [36, 37, 38, 39, 40],
   },
 ];
 
@@ -115,72 +136,116 @@ function Particle({ x, delay, color }: { x: number; delay: number; color: string
   );
 }
 
-function NumberCard({ item }: { item: { num: number; title: string; style: string; music: string; duration: string } }) {
+function DetailRow({ item }: { item: ProgramItem }) {
   const [hovered, setHovered] = useState(false);
+
+  if (item.kind === "bg") {
+    return (
+      <div
+        className="flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all duration-200"
+        style={{
+          background: hovered ? "rgba(255,255,255,0.03)" : "transparent",
+          borderLeft: "2px solid rgba(255,255,255,0.06)",
+          marginLeft: "4px",
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <span
+          className="flex-shrink-0 font-sans text-xs w-7 text-right"
+          style={{ color: "rgba(180,155,90,0.35)", fontSize: "0.68rem", fontWeight: 500 }}
+        >
+          {item.num}
+        </span>
+        <Icon name="Music2" size={12} style={{ color: "rgba(180,155,90,0.3)", flexShrink: 0 }} />
+        <span
+          className="font-sans text-xs italic"
+          style={{ color: "rgba(180,155,90,0.45)", fontSize: "0.78rem" }}
+        >
+          Фоновая музыка — {item.for}
+        </span>
+      </div>
+    );
+  }
+
+  if (item.kind === "special") {
+    return (
+      <div
+        className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200"
+        style={{
+          background: hovered ? "rgba(212,168,67,0.1)" : "rgba(212,168,67,0.04)",
+          border: `1px solid ${hovered ? "rgba(212,168,67,0.35)" : "rgba(212,168,67,0.12)"}`,
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <span
+          className="flex-shrink-0 font-sans text-xs w-7 text-right"
+          style={{ color: "#A07828", fontSize: "0.68rem", fontWeight: 600 }}
+        >
+          {item.num}
+        </span>
+        <Icon name="Star" size={13} style={{ color: "#D4A843", flexShrink: 0 }} />
+        <span
+          className="font-display"
+          style={{ color: hovered ? "#F0C96A" : "#D4A843", fontSize: "1rem", fontWeight: 600 }}
+        >
+          {item.title}
+        </span>
+      </div>
+    );
+  }
+
+  // kind === "number"
   return (
     <div
-      className="relative rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden"
+      className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 cursor-default"
       style={{
-        background: hovered ? "rgba(212,168,67,0.08)" : "rgba(255,255,255,0.02)",
-        borderColor: hovered ? "rgba(212,168,67,0.4)" : "rgba(255,255,255,0.06)",
-        transform: hovered ? "translateX(6px)" : "translateX(0)",
+        background: hovered ? "rgba(212,168,67,0.07)" : "rgba(255,255,255,0.02)",
+        border: `1px solid ${hovered ? "rgba(212,168,67,0.3)" : "rgba(255,255,255,0.05)"}`,
+        transform: hovered ? "translateX(4px)" : "translateX(0)",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="flex items-start gap-4 p-4">
-        <div
-          className="flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center font-sans font-700 text-sm transition-all duration-300"
-          style={{
-            background: hovered ? "rgba(212,168,67,0.3)" : "rgba(212,168,67,0.12)",
-            color: "#D4A843",
-            fontWeight: 700,
-          }}
-        >
-          {item.num}
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2">
-            <h4
-              className="font-display text-base leading-tight"
-              style={{ color: hovered ? "#F0C96A" : "#E8D5A3", fontWeight: 600, fontSize: "1.05rem" }}
-            >
-              {item.title}
-            </h4>
-            <span
-              className="flex-shrink-0 text-xs font-sans px-2 py-0.5 rounded-full"
-              style={{ background: "rgba(212,168,67,0.1)", color: "#A07828", fontSize: "0.7rem" }}
-            >
-              {item.duration}
-            </span>
-          </div>
-          <div className="flex items-center gap-3 mt-1.5">
-            <span
-              className="text-xs font-sans"
-              style={{ color: "rgba(180,160,120,0.7)", fontSize: "0.72rem" }}
-            >
-              {item.style}
-            </span>
-            <span style={{ color: "rgba(255,255,255,0.15)", fontSize: "0.6rem" }}>•</span>
-            <span
-              className="text-xs font-sans italic"
-              style={{ color: "rgba(160,140,100,0.6)", fontSize: "0.72rem" }}
-            >
-              {item.music}
-            </span>
-          </div>
-        </div>
+      <div
+        className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-sans text-xs transition-all duration-200"
+        style={{
+          background: hovered ? "rgba(212,168,67,0.25)" : "rgba(212,168,67,0.1)",
+          color: "#D4A843",
+          fontWeight: 700,
+          fontSize: "0.72rem",
+        }}
+      >
+        {item.num}
       </div>
+      <span
+        className="font-display"
+        style={{
+          color: hovered ? "#F0C96A" : "#E8D5A3",
+          fontSize: "1.05rem",
+          fontWeight: 600,
+          lineHeight: 1.2,
+        }}
+      >
+        {item.title}
+      </span>
+      {item.note && (
+        <span className="font-sans text-xs ml-auto" style={{ color: "rgba(180,155,90,0.5)", fontSize: "0.7rem", flexShrink: 0 }}>
+          {item.note}
+        </span>
+      )}
     </div>
   );
 }
 
 function SectionCard({ section, index }: { section: typeof PROGRAM[0]; index: number }) {
-  const [expanded, setExpanded] = useState(section.type !== "intermission");
+  const [expanded, setExpanded] = useState(true);
   const colors = typeColors[section.type] || typeColors.act;
   const isFinale = section.type === "finale";
   const isPrologue = section.type === "prologue";
-  const isIntermission = section.type === "intermission";
+
+  const sectionItems = section.items.map((n) => DETAILED.find((d) => d.num === n)).filter(Boolean) as ProgramItem[];
 
   return (
     <div
@@ -189,49 +254,38 @@ function SectionCard({ section, index }: { section: typeof PROGRAM[0]; index: nu
         background: colors.bg,
         border: `1px solid ${colors.border}`,
         boxShadow: `0 0 40px ${colors.glow}`,
-        animationDelay: `${index * 0.1}s`,
       }}
     >
       {(isFinale || isPrologue) && (
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse at 50% 0%, ${section.color}18 0%, transparent 60%)`,
-          }}
+          style={{ background: `radial-gradient(ellipse at 50% 0%, ${section.color}18 0%, transparent 60%)` }}
         />
       )}
 
       <div
-        className="flex items-center justify-between p-6 cursor-pointer select-none"
-        onClick={() => !isIntermission && setExpanded(!expanded)}
+        className="flex items-center justify-between p-5 cursor-pointer select-none"
+        onClick={() => setExpanded(!expanded)}
       >
         <div className="flex items-center gap-4">
           <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+            className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
             style={{ background: `${section.color}20`, border: `1px solid ${section.color}40` }}
           >
-            <Icon name={section.icon} size={22} style={{ color: section.color }} />
+            <Icon name={section.icon} size={20} style={{ color: section.color }} />
           </div>
           <div>
-            <div className="flex items-center gap-3">
-              <span
-                className="font-sans text-xs font-600 uppercase tracking-widest"
-                style={{ color: section.color, letterSpacing: "0.15em", fontSize: "0.68rem", fontWeight: 600 }}
-              >
-                {section.label}
-              </span>
-              <span
-                className="font-sans text-xs"
-                style={{ color: "rgba(255,255,255,0.3)", fontSize: "0.7rem" }}
-              >
-                {section.time} · {section.duration}
-              </span>
-            </div>
+            <span
+              className="font-sans text-xs uppercase tracking-widest block"
+              style={{ color: section.color, letterSpacing: "0.15em", fontSize: "0.66rem", fontWeight: 600 }}
+            >
+              {section.label}
+            </span>
             <h3
-              className="font-display mt-0.5"
+              className="font-display"
               style={{
                 color: isFinale ? "#F0C96A" : isPrologue ? "#E8D5A3" : "#D4C4A0",
-                fontSize: "1.35rem",
+                fontSize: "1.25rem",
                 fontWeight: 600,
                 lineHeight: 1.2,
               }}
@@ -240,32 +294,27 @@ function SectionCard({ section, index }: { section: typeof PROGRAM[0]; index: nu
             </h3>
           </div>
         </div>
-        {!isIntermission && (
-          <div
-            className="transition-transform duration-300 flex-shrink-0"
-            style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}
-          >
-            <Icon name="ChevronDown" size={18} style={{ color: "rgba(255,255,255,0.3)" }} />
-          </div>
-        )}
+        <div
+          className="transition-transform duration-300 flex-shrink-0"
+          style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}
+        >
+          <Icon name="ChevronDown" size={18} style={{ color: "rgba(255,255,255,0.25)" }} />
+        </div>
       </div>
 
       {expanded && (
-        <div className="px-6 pb-6">
+        <div className="px-5 pb-5">
           <p
-            className="font-sans text-sm leading-relaxed mb-5"
-            style={{ color: "rgba(200,180,140,0.75)", fontSize: "0.85rem", lineHeight: 1.7 }}
+            className="font-sans text-xs mb-4"
+            style={{ color: "rgba(180,160,120,0.55)", fontSize: "0.8rem", lineHeight: 1.6 }}
           >
             {section.description}
           </p>
-
-          {section.numbers.length > 0 && (
-            <div className="space-y-2">
-              {section.numbers.map((n) => (
-                <NumberCard key={n.num} item={n} />
-              ))}
-            </div>
-          )}
+          <div className="space-y-1.5">
+            {sectionItems.map((item) => (
+              <DetailRow key={item.num} item={item} />
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -287,8 +336,7 @@ export default function Index() {
     };
   }, []);
 
-  const totalNumbers = PROGRAM.reduce((sum, s) => sum + s.numbers.length, 0);
-  const totalDuration = "2 ч 35 мин";
+  const totalDuration = "2+ часа";
 
   return (
     <div
@@ -364,7 +412,7 @@ export default function Index() {
       >
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
           <span className="shimmer-text font-display text-lg" style={{ fontWeight: 600 }}>
-            Праздник Танца
+            {SHOW_TITLE}
           </span>
           <div className="flex items-center gap-6">
             <a href="#program" className="font-sans text-xs uppercase tracking-widest transition-colors duration-200"
@@ -452,7 +500,7 @@ export default function Index() {
               className="font-sans uppercase tracking-widest text-xs"
               style={{ color: "#D4A843", letterSpacing: "0.25em", fontSize: "0.72rem" }}
             >
-              Грандиозное шоу
+              {SHOW_YEAR}
             </span>
             <div style={{ height: "1px", width: "60px", background: "rgba(212,168,67,0.5)" }} />
           </div>
@@ -460,14 +508,14 @@ export default function Index() {
           <h1
             className="text-reveal-2 shimmer-text font-display mb-4"
             style={{
-              fontSize: "clamp(3rem, 10vw, 7rem)",
+              fontSize: "clamp(2.2rem, 8vw, 6rem)",
               fontWeight: 700,
-              lineHeight: 1.0,
+              lineHeight: 1.05,
               letterSpacing: "-0.02em",
             }}
           >
-            Праздник<br />
-            <span style={{ fontStyle: "italic", fontWeight: 300 }}>Танца</span>
+            Кто любит —<br />
+            <span style={{ fontStyle: "italic", fontWeight: 300 }}>тот любим</span>
           </h1>
 
           <p
@@ -479,7 +527,7 @@ export default function Index() {
               marginBottom: "2.5rem",
             }}
           >
-            Классический балет · Современный танец · Характерные номера
+            Открытый урок · 2026
           </p>
 
           <div
@@ -488,7 +536,7 @@ export default function Index() {
           >
             {[
               { icon: "Clock", label: totalDuration },
-              { icon: "Music", label: `${totalNumbers} номеров` },
+              { icon: "Music", label: "40 номеров" },
               { icon: "Users", label: "Весь ансамбль" },
             ].map(({ icon, label }) => (
               <div key={label} className="flex items-center gap-2">
@@ -538,9 +586,9 @@ export default function Index() {
         <div className="max-w-5xl mx-auto px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { value: "2+ часа", label: "Продолжительность" },
-            { value: "17", label: "Номеров" },
-            { value: "3", label: "Акта + Финал" },
-            { value: "19:00", label: "Начало" },
+            { value: "40", label: "Позиций программы" },
+            { value: "4 части", label: "+ Финал" },
+            { value: "2026", label: "Открытый урок" },
           ].map(({ value, label }) => (
             <div key={label} className="text-center">
               <div className="shimmer-text font-display" style={{ fontSize: "1.8rem", fontWeight: 600, lineHeight: 1 }}>
@@ -567,7 +615,7 @@ export default function Index() {
             className="font-display"
             style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 600, color: "#E8D5A3" }}
           >
-            Путешествие через <span className="shimmer-text">танец</span>
+            Кто любит — <span className="shimmer-text">тот любим</span>
           </h2>
         </div>
 
@@ -597,19 +645,19 @@ export default function Index() {
               className="font-display mb-3"
               style={{ fontSize: "2rem", color: "#E8D5A3", fontWeight: 600 }}
             >
-              Вечер, который останется в сердце
+              Праздник, который останется в сердце
             </h3>
             <p
               className="font-sans max-w-xl mx-auto"
               style={{ color: "rgba(200,175,130,0.7)", fontSize: "0.9rem", lineHeight: 1.8 }}
             >
-              Масштабное шоу объединяет красоту классического балета, экспрессию современного танца
-              и яркость характерных номеров в единое незабываемое действо.
+              Открытый урок 2026 — это большой праздник танца, где каждый номер наполнен
+              теплом, любовью и красотой. Занавес закрыт. Всё начинается.
             </p>
             <div
               className="mt-8 flex flex-wrap justify-center gap-3"
             >
-              {["Классический балет", "Современный танец", "Характерные номера", "Гранд-финал"].map((tag) => (
+              {["Калинка", "Созвездие", "Куклы", "Ритм жизни", "Валенсия"].map((tag) => (
                 <span
                   key={tag}
                   className="font-sans text-xs px-4 py-2 rounded-full"
@@ -634,10 +682,10 @@ export default function Index() {
         style={{ borderColor: "rgba(212,168,67,0.1)" }}
       >
         <div className="shimmer-text font-display text-xl mb-2" style={{ fontWeight: 600 }}>
-          Праздник Танца
+          Кто любит — тот любим
         </div>
         <p className="font-sans text-xs" style={{ color: "rgba(160,140,100,0.4)", fontSize: "0.7rem" }}>
-          Классический балет · Современный танец · Характерные номера
+          Открытый урок · 2026
         </p>
       </footer>
     </div>
